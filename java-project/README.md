@@ -11,12 +11,11 @@
 ### SpringSecurit
 #### 用户认证
 * Security配置类
-'''java
-
-'''
+```java
+block
+```
 * UserDetailService :每一个UserDetails就代表一个用户信息，其中包含用户的用户名和密码以及角色,只有当build完该类时，登录才被Security代理
-'''java
-
+```java
 public class AuthorizeService implements UserDetailsService {
     @Resource
     UserMapper mapper;
@@ -36,8 +35,7 @@ public class AuthorizeService implements UserDetailsService {
                 .build();
     }
 }
-
-'''
+```
 #### 用户授权
 *
 ### 持久层设计
