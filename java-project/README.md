@@ -16,11 +16,10 @@
 '''
 * UserDetailService :每一个UserDetails就代表一个用户信息，其中包含用户的用户名和密码以及角色,只有当build完该类时，登录才被Security代理
 '''java
+
 public class AuthorizeService implements UserDetailsService {
     @Resource
     UserMapper mapper;
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if(username == null){
@@ -30,7 +29,6 @@ public class AuthorizeService implements UserDetailsService {
         if (account == null){
             throw new UsernameNotFoundException("用户名或密码错误");
         }
-
         return User
                 .withUsername(account.getUsername())
                 .password(account.getPassword())
