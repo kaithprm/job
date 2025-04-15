@@ -6,7 +6,8 @@
 * MyBatis 3.0+
 ### 前端
 * Vite+Vue
-* Element-plus 
+* Element-plus
+* Axios 
 ## 实现过程
 ### SpringSecurit
 #### 用户认证
@@ -39,3 +40,29 @@ public class AuthorizeService implements UserDetailsService {
 #### 用户授权
 *
 ### 持久层设计
+### 前端
+#### 配置
+* element自动导入
+* 安装插件
+```shell
+npm install -D unplugin-vue-components unplugin-auto-import
+```
+* vite.config.js配置
+```js
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue(),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),],
+})
+```
+
