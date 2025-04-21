@@ -40,6 +40,18 @@ public class AuthorizeService implements UserDetailsService {
 #### 用户授权
 *
 ### 持久层设计
+* tb_account表:
+
+| Syntax      | Type        |
+| ----------- | ----------- |
+| id          | int         |
+| username    | varchar     |
+| password    | varchar     |
+| role        | nosinged tinyint  |
+| emai        | varchar     |
+| createtime  | Date        |
+| updatetime  | Date        |
+
 ### 前端
 #### 配置
 * element自动导入
