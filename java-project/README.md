@@ -1,4 +1,4 @@
-# 基于SpringBoot前后端分离可二次开发模板项目
+# 基于SpringBoot前后端分离可商城项目
 ## 依赖版本
 ### 后端
 * SpringBoot 3
