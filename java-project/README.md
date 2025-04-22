@@ -40,7 +40,7 @@ public class AuthorizeService implements UserDetailsService {
 #### 用户授权
 *
 ### 持久层设计
-* tb_account表:
+* tb_account表: 用户表
 
 | Syntax      | Type        |
 | ----------- | ----------- |
@@ -48,10 +48,48 @@ public class AuthorizeService implements UserDetailsService {
 | username    | varchar     |
 | password    | varchar     |
 | role        | nosinged tinyint  |
-| emai        | varchar     |
-| createtime  | Date        |
-| updatetime  | Date        |
+| email        | varchar     |
+| createtime  | date        |
+| updatetime  | date        |
 
+* tb_log表: 日志表
+
+| Syntax      | Type        |
+| ----------- | ----------- |
+| id          | int         |
+| user_id    | int     |
+| work_time    | date     |
+| returnvalue       | varchar  |
+| coast_time        | date    |
+
+
+### Redis缓存
+* 使用RedisTemplate接收UserDetailService
+···java
+    @Autowired
+    private RedisTemplate<String, UserDetails> redisTemplate;
+···
+···java
+    public UserDetails getUserDetails(String username) {
+        String key = "user:" + username; // 定义 Redis key
+        UserDetails userDetails = redisTemplate.opsForValue().get(key);
+
+        if (userDetails == null) {
+            userDetails = userDetailsService.loadUserByUsername(username); // 从数据库加载
+            if (userDetails != null) {
+                redisTemplate.opsForValue().set(key, userDetails, Duration.ofMinutes(30)); // 设置缓存，过期时间为 30 分钟
+            }
+        }
+        return userDetails;
+    }
+
+    public void evictUser(String username){
+        String key = "user:" + username;
+        redisTemplate.delete(key);
+    }
+···
+### AOP日志
+* 切入点
 ### 前端
 #### 配置
 * element自动导入
